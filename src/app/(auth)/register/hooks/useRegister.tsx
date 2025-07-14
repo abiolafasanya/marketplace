@@ -28,7 +28,7 @@ export const useRegister = () => {
       }
     },
     onSuccess(data) {
-      login(data);
+      login(data.user);
       toast.success("Registration Successful");
       router.push("/");
     },
