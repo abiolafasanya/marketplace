@@ -8,14 +8,22 @@ import { RegisterInput, registerSchema } from "../../schema/auth";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { useEffect } from "react";
 
 export const useRegister = () => {
   const form = useForm<RegisterInput>({
     resolver: zodResolver(registerSchema),
   });
 
-  const { login } = useAuthStore();
+  const { isLoggedOut, login } = useAuthStore();
   const router = useRouter();
+
+    useEffect(() => {
+      if (!isLoggedOut) {
+        router.push("/");
+      }
+    }, [isLoggedOut, router]);
+  
 
   const mutation = useMutation({
     mutationKey: ["register"],
