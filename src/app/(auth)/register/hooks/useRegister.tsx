@@ -19,7 +19,7 @@ export const useRegister = () => {
   const router = useRouter();
 
     useEffect(() => {
-      if (!isLoggedOut) {
+      if (isLoggedOut === false) {
         router.push("/");
       }
     }, [isLoggedOut, router]);

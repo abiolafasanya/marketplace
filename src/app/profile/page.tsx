@@ -12,7 +12,7 @@ import FullPageLoader from "@/components/loader/fullPageLoader";
 import { Pencil } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import useAuthRedirect from "@/hooks/useAuthRedirect";
+// import useAuthRedirect from "@/hooks/useAuthRedirect";
 
 export default function ProfilePage() {
   const {
@@ -30,7 +30,6 @@ export default function ProfilePage() {
     handleAvatarUpload,
   } = useProfile();
 
-  useAuthRedirect();
   
   const [editingAvatar, setEditingAvatar] = useState(false);
 
