@@ -33,7 +33,8 @@ export const useLogin = () => {
   });
 
   useEffect(() => {
-    if (isLoggedOut === false) {
+    if (!isLoggedOut) {
+      console.log("Logout", isLoggedOut)
       router.push("/");
     }
   }, [isLoggedOut, router]);

@@ -19,7 +19,7 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       token: Cookies.get("token") || null,
-      isLoggedOut: false,
+      isLoggedOut: true,
 
       login: (user) => set({ user }),
       logout: async(redirect: () => void = () =>{}) => {
