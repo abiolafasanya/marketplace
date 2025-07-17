@@ -30,7 +30,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="mt-16 bg-white p-6 rounded shadow">
+        <section className="mt-16 bg-background p-6 rounded shadow">
           <h3 className="text-xl font-bold mb-4">How It Works</h3>
           <ol className="space-y-2 text-left">
             <li>1️⃣ Search for what you need</li>
