@@ -1,3 +1,4 @@
+"use client"
 import authApi from "@/api/AuthApi";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
