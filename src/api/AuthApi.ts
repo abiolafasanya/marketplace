@@ -3,6 +3,7 @@ import {
   ChangePasswordSchema,
   UpdateProfileSchema,
 } from "@/app/profile/schema/profile";
+import { ApiResponse } from "@/types/global";
 import axios, { AxiosResponse } from "axios";
 
 export interface User {
@@ -16,6 +17,12 @@ export interface User {
 export interface AuthResponse {
   token: string;
   user: User;
+}
+
+export interface ResetPassword {
+  email: string;
+  password: string;
+  token: string;
 }
 
 class AuthApi {
@@ -43,6 +50,7 @@ class AuthApi {
     );
     return data.data;
   }
+
   async changePassword(payload: ChangePasswordSchema): Promise<AuthResponse> {
     const { data }: AxiosResponse<{ data: AuthResponse }> = await axios.post(
       `${this.url}/change-password`,
@@ -51,9 +59,26 @@ class AuthApi {
     return data.data;
   }
 
+  async resetPassword(payload: ResetPassword): Promise<ApiResponse<string>> {
+    const { data }: AxiosResponse<{ data: ApiResponse<string> }> =
+      await axios.post(`${this.url}/reet-password`, payload);
+    return data.data;
+  }
+  
+  async forgotPassword(email: string): Promise<ApiResponse<string>> {
+    const { data }: AxiosResponse<{ data: ApiResponse<string> }> =
+      await axios.post(`${this.url}/forgot-password`, email);
+    return data.data;
+  }
+
   async getMe(): Promise<AuthResponse["user"]> {
     const { data }: AxiosResponse<{ data: AuthResponse["user"] }> =
       await axios.get(`${this.url}/me`);
+    return data.data;
+  }
+  async logout(): Promise<ApiResponse<string>> {
+    const { data }: AxiosResponse<{ data: ApiResponse<string> }> =
+      await axios.post(`${this.url}/logout`);
     return data.data;
   }
 }

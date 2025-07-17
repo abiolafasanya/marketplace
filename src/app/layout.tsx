@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import AppInitProvider from "./components/AppInitProvider";
+import ThemeClientWrapper from "@/components/themeClient";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,25 +24,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full mx-auto`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full mx-auto bg-background text-foreground`}
       >
+        <ThemeClientWrapper /> {/* ✅ Applies theme on client */}
         <AppInitProvider>
           <Header />
           {children}
           <Footer />
         </AppInitProvider>
-        <Toaster
-          position="top-center"
-          // reverseOrder={false}
-          // invert
-          toastOptions={{ duration: 5000 }}
-        />
+        <Toaster position="top-center" toastOptions={{ duration: 5000 }} />
       </body>
     </html>
   );

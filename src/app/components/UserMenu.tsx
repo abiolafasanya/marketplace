@@ -16,6 +16,9 @@ import { Info, LogOutIcon, StopCircle, User } from "lucide-react";
 export default function UserMenu() {
   const router = useRouter();
   const { logout, user } = useAuthStore();
+    const redirect = () => {
+      router.replace("/login");
+    };
 
   const initials = user?.name?.[0]?.toUpperCase() || "U";
 
@@ -24,7 +27,9 @@ export default function UserMenu() {
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
           {user?.avatar && <AvatarImage src={user?.avatar || "/user.jpg"} />}
-          <AvatarFallback>{initials}</AvatarFallback>
+          <AvatarFallback className="bg-gray-200 dark:bg-gray-700 text-black dark:text-white">
+            {initials}
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
 
@@ -46,7 +51,7 @@ export default function UserMenu() {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={logout}>
+        <DropdownMenuItem onClick={() =>logout(redirect)}>
           <LogOutIcon /> Logout
         </DropdownMenuItem>
       </DropdownMenuContent>

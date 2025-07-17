@@ -2,14 +2,14 @@
 import { create } from "zustand";
 import Cookies from "js-cookie";
 import { persist } from "zustand/middleware";
-import { AuthResponse } from "@/api/AuthApi";
+import authApi, { AuthResponse } from "@/api/AuthApi";
 
 interface AuthState {
   user: AuthResponse["user"] | null;
   token: string | null;
   isLoggedOut: boolean;
   login: (data: AuthResponse["user"]) => void;
-  logout: () => void;
+  logout: (redirect?: () => void) => void;
   setIsLoggedOut: (val: boolean) => void;
   setToken: (token: string) => void;
 }
@@ -22,10 +22,12 @@ export const useAuthStore = create<AuthState>()(
       isLoggedOut: false,
 
       login: (user) => set({ user }),
-      logout: () => {
+      logout: async(redirect: () => void = () =>{}) => {
         Cookies.remove("token");
         set({ user: null });
         set({isLoggedOut: true})
+        await authApi.logout();
+        redirect()
       },
       setIsLoggedOut: (val) => set({ isLoggedOut: val }),
       setToken: (token: string) => {

@@ -7,7 +7,7 @@ import { Listing } from "@/types/Listing";
 
 export default function ListingCard({ listing }: { listing: Listing }) {
   return (
-    <div className="border rounded-lg overflow-hidden shadow-sm bg-white">
+    <div className="border rounded-lg overflow-hidden shadow-sm bg-background">
       <div className="relative w-full h-48">
         <Image
           src={listing?.images[0]}

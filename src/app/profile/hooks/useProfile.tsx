@@ -12,17 +12,15 @@ import {
   ChangePasswordSchema,
   changePasswordSchema,
 } from "../schema/profile";
-import { useAuthStore } from "@/store/authStore";
 import authApi from "@/api/AuthApi";
 import { useEffect, useState } from "react";
 
 export default function useProfile() {
-  const { token } = useAuthStore();
   const [files, setFile] = useState<File[]>([])
+
   const profileQuery = useQuery({
-    queryKey: ["profile", token],
+    queryKey: ["profile"],
     queryFn: () => authApi.getMe(),
-    enabled: !!token,
   });
 
   const {

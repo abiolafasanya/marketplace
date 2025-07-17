@@ -37,7 +37,7 @@ export default function ListItemForm() {
     <div className="min-h-screen flex items-center justify-center">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="max-w-2xl w-full  mx-auto space-y-6 p-6 bg-white shadow rounded"
+        className="max-w-2xl w-full  mx-auto space-y-6 p-6 bg-background shadow rounded"
       >
         <h2 className="text-2xl font-semibold text-center">List Your Item</h2>
         <div className="space-y-2">
@@ -159,7 +159,7 @@ export default function ListItemForm() {
         )}
 
         <Button type="submit" className="w-full text-lg">
-          📤 List My Item Now
+           List My Item
         </Button>
       </form>
     </div>
