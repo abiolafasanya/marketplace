@@ -3,6 +3,7 @@ import {
   ChangePasswordSchema,
   UpdateProfileSchema,
 } from "@/app/profile/schema/profile";
+import QueryBuilder from "@/lib/utils";
 import { ApiResponse } from "@/types/global";
 import axios, { AxiosResponse } from "axios";
 
@@ -59,16 +60,31 @@ class AuthApi {
     return data.data;
   }
 
+  async verifyEmail(payload: {
+    token: string;
+    email: string;
+  }): Promise<ApiResponse<string>> {
+    const query = new QueryBuilder(`${this.url}/verify-email`)
+      .set("token", payload.token)
+      .set("email", payload.email)
+      .build();
+
+    const response: AxiosResponse<ApiResponse<string>> = await axios.get(query);
+    return response.data;
+  }
+
   async resetPassword(payload: ResetPassword): Promise<ApiResponse<string>> {
     const { data }: AxiosResponse<{ data: ApiResponse<string> }> =
       await axios.post(`${this.url}/reet-password`, payload);
     return data.data;
   }
-  
+
   async forgotPassword(email: string): Promise<ApiResponse<string>> {
-    const { data }: AxiosResponse<{ data: ApiResponse<string> }> =
-      await axios.post(`${this.url}/forgot-password`, email);
-    return data.data;
+    const { data }: AxiosResponse<ApiResponse<string>> = await axios.post(
+      `${this.url}/forgot-password`,
+      { email }
+    );
+    return data;
   }
 
   async getMe(): Promise<AuthResponse["user"]> {

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import authApi from "@/api/AuthApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -8,10 +8,14 @@ import { toast } from "sonner";
 import { ForgotPasswordInput, forgotPasswordSchema } from "../../schema/auth";
 
 export default function useForgetPassword() {
-
-  const {register, reset, handleSubmit, formState: {errors}} = useForm<ForgotPasswordInput>({
-    resolver: zodResolver(forgotPasswordSchema)
-  })
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ForgotPasswordInput>({
+    resolver: zodResolver(forgotPasswordSchema),
+  });
 
   const mutation = useMutation({
     mutationKey: ["forgot-password"],
@@ -24,12 +28,12 @@ export default function useForgetPassword() {
       }
     },
     onSuccess(data) {
-      reset({})
+      reset({});
       toast.success(data.message);
     },
   });
 
-  const onSubmit = async ({email}: ForgotPasswordInput) => {
+  const onSubmit = async ({ email }: ForgotPasswordInput) => {
     await mutation.mutateAsync(email);
   };
 
@@ -37,7 +41,7 @@ export default function useForgetPassword() {
     isSubmitting: mutation.isPending,
     errors,
     onSubmit,
-    handleSubmit, 
+    handleSubmit,
     register,
   };
 }
