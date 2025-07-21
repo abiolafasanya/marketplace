@@ -74,28 +74,28 @@ class AuthApi {
   }
 
   async resetPassword(payload: ResetPassword): Promise<ApiResponse<string>> {
-    const { data }: AxiosResponse<{ data: ApiResponse<string> }> =
-      await axios.post(`${this.url}/reet-password`, payload);
-    return data.data;
+    const response: AxiosResponse<ApiResponse<string>> =
+      await axios.post(`${this.url}/reset-password`, payload);
+    return response.data;
   }
 
   async forgotPassword(email: string): Promise<ApiResponse<string>> {
-    const { data }: AxiosResponse<ApiResponse<string>> = await axios.post(
+    const response: AxiosResponse<ApiResponse<string>> = await axios.post(
       `${this.url}/forgot-password`,
       { email }
     );
-    return data;
+    return response.data;
   }
 
   async getMe(): Promise<AuthResponse["user"]> {
-    const { data }: AxiosResponse<{ data: AuthResponse["user"] }> =
+    const response: AxiosResponse<AuthResponse["user"]> =
       await axios.get(`${this.url}/me`);
-    return data.data;
+    return response.data;
   }
   async logout(): Promise<ApiResponse<string>> {
-    const { data }: AxiosResponse<{ data: ApiResponse<string> }> =
+    const response: AxiosResponse<ApiResponse<string>> =
       await axios.post(`${this.url}/logout`);
-    return data.data;
+    return response.data;
   }
 }
 
